@@ -1,0 +1,39 @@
+name: tests
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - uses: pnpm/action-setup@v2.2.2
+      with:
+        version: 7.9.5
+    - name: Install dependencies
+      run: |
+        pnpm install
+        cd test
+        pnpm install
+    - name: Run tests and generate coverage information
+      run: |
+        pnpm run test
+      env:
+        CI: true
+    - uses: irongut/CodeCoverageSummary@v1.3.0
+      with:
+        filename: coverage/cobertura-coverage.xml
