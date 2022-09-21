@@ -21,17 +21,14 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - uses: pnpm/action-setup@v2.2.2
-      with:
-        version: 7.9.5
     - name: Install dependencies
       run: |
-        pnpm install
+        npm ci --no-audit --no-fund
         cd test
-        pnpm install
+        npm ci --no-audit --no-fund
     - name: Run tests and generate coverage information
       run: |
-        pnpm run test
+        npm run test
       env:
         CI: true
     - uses: irongut/CodeCoverageSummary@v1.3.0
