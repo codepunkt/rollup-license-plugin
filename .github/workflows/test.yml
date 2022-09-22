@@ -24,13 +24,19 @@ jobs:
     - name: Install dependencies
       run: |
         npm ci --no-audit --no-fund
-    - name: Run tests and generate coverage information
-      run: |
-        npm run test
+    - name: Run tests
+      run: npm run test
       env:
         CI: true
-    - uses: irongut/CodeCoverageSummary@v1.3.0
+    - name: Create Coverage summary file
+      uses: irongut/CodeCoverageSummary@v1.3.0
       with:
         filename: ./coverage/cobertura-coverage.xml
         format: markdown
         output: both
+    - name: Add Coverage PR comment
+      uses: marocchino/sticky-pull-request-comment@v2
+      if: github.event_name == 'pull_request'
+      with:
+        recreate: true
+        path: code-coverage-results.md
