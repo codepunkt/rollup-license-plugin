@@ -80,6 +80,8 @@ export default defineConfig({
 })
 ```
 
+Further code examples will only show `createRollupLicensePlugin`, but they are applicable to Vite aswell by importing `createViteLicensePlugin` instead.
+
 # Available options
 
 Options are given as an `Object` to the `createRollupLicensePlugin` and `createViteLicensePlugin` methods:
@@ -107,25 +109,18 @@ The available options are:
 This example writes the result to a file named `meta/licenses.json` in the output directory, fails whenever it encounters one of the given licenses and overrides the license of the package `fuse.js@3.2.1`.
 
 ```ts
-import { defineConfig } from 'vite'
-import { createViteLicensePlugin } from 'rollup-license-plugin'
-
-export default defineConfig({
-  plugins: [
-    createViteLicensePlugin({
-      excludedPackageTest: (packageName, version) => {
-        return packageName.startsWith('@internal/')
-      },
-      licenseOverrides: {
-        // has "Apache" in package.json, but Apache-2.0 text in LICENSE file
-        'fuse.js@3.2.1': 'Apache-2.0'
-      },
-      outputFilename: 'meta/licenses.json',
-      unacceptableLicenseTest: (licenseIdentifier) => {
-        return ['GPL', 'AGPL', 'LGPL', 'NGPL'].includes(licenseIdentifier)
-      }
-    })
-  ],
+createRollupLicensePlugin({
+  excludedPackageTest: (packageName, version) => {
+    return packageName.startsWith('@internal/')
+  },
+  licenseOverrides: {
+    // has "Apache" in package.json, but Apache-2.0 text in LICENSE file
+    'fuse.js@3.2.1': 'Apache-2.0'
+  },
+  outputFilename: 'meta/licenses.json',
+  unacceptableLicenseTest: (licenseIdentifier) => {
+    return ['GPL', 'AGPL', 'LGPL', 'NGPL'].includes(licenseIdentifier)
+  }
 })
 ```
 
@@ -195,52 +190,35 @@ This way, the output can be formatted to any format you might need and then be w
 ### Package list as CSV
 
 ```ts
-import { defineConfig } from 'vite'
-import { createViteLicensePlugin } from 'rollup-license-plugin'
-
-const csvTransform = (packages) => {
-  const keys = ['name', 'version', 'license']
-
-  return [
-    '"sep=,"',
-    keys.join(','),
-    ...packages.map(pckg => keys.map(key => `="${pckg[key]}"`).join(',')),
-  ].join('\n')
-}
-
-export default defineConfig({
-  plugins: [
-    createViteLicensePlugin({
-      additionalFiles: {
-        'oss-licenses.csv': csvTransform
-      }
-    })
-  ],
+createRollupLicensePlugin({
+  additionalFiles: {
+    'oss-licenses.csv': (packages) => {
+      const keys = ['name', 'version', 'license']
+      return [
+        '"sep=,"',
+        keys.join(','),
+        ...packages.map(p => keys.map(key => `="${p[key]}"`).join(',')),
+      ].join('\n')
+    }
+  }
 })
 ```
 
 ### Package list and additional summary
 
 ```ts
-import { defineConfig } from 'vite'
-import { createViteLicensePlugin } from 'rollup-license-plugin'
-
-export default defineConfig({
-  plugins: [
-    createViteLicensePlugin({
-      additionalFiles: {
-        'oss-summary.json': packages => {
-          const licenseCount = packages.reduce(
-            (prev, { license }) => ({
-              ...prev,
-              [license]: prev[license] ? prev[license] + 1 : 1,
-            }),
-            {}
-          )
-          return JSON.stringify(licenseCount, null, 2)
-        },
-      },
-    })
-  ],
+createRollupLicensePlugin({
+  additionalFiles: {
+    'oss-summary.json': packages => {
+      const licenseCount = packages.reduce(
+        (prev, { license }) => ({
+          ...prev,
+          [license]: prev[license] ? prev[license] + 1 : 1,
+        }),
+        {}
+      )
+      return JSON.stringify(licenseCount, null, 2)
+    },
+  },
 })
 ```
