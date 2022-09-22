@@ -64,7 +64,7 @@
     ]
   },
   "c8": {
-    "reporters": [
+    "reporter": [
       "text",
       "cobertura"
     ]

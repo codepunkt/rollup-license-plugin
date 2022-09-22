@@ -1,0 +1,32 @@
+name: pr-comment
+
+on:
+  workflow_run:
+    workflows: ["test"]
+    types:
+      - completed
+
+jobs:
+  comment:
+    name: Comment on PR
+    runs-on: ubuntu-20.04
+    if: ${{ github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Download PR meta and Coverage summery artifacts
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: "${{ secrets.GITHUB_TOKEN }}"
+          run_id: ${{ github.event.workflow_run.id }}
+          name: pr-comment-meta
+      - name: Display structure of downloaded files
+        run: ls -R
+
+      - name: Restore preserved PR meta
+        run: cat pr.env >> "${GITHUB_ENV}"
+
+      - name: Add Coverage PR comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          number: ${{ env.PR_NUMBER }}
+          recreate: true
+          path: code-coverage-results.md
