@@ -36,7 +36,7 @@
     "prebuild": "node -e \"fs.rmSync('dist', { force: true, recursive: true })\"",
     "build": "tsup src/index.ts",
     "typescript": "tsc",
-    "install:test": "cd test && npm i",
+    "postinstall": "cd test && npm ci",
     "prepublishOnly": "npm run build",
     "test": "c8 ava"
   },

@@ -9,6 +9,18 @@ import react from '@vitejs/plugin-react'
 import test from 'ava'
 import type { RollupOutput, OutputAsset } from 'rollup'
 
+// There are a lot of warnings that tell us to use "type === 'asset'" instead
+// of accessing "isAsset" on files in the bundle. We don't know where these
+// are coming from and don't want them
+const originalWarn = console.warn
+console.warn = (...rest) => {
+  if (
+    !rest[0].match(/^Accessing "isAsset" on files in the bundle is deprecated/)
+  ) {
+    originalWarn(...rest)
+  }
+}
+
 const root = join(process.cwd(), 'test')
 
 async function build(opts: PluginOptions = {}): Promise<OutputAsset[]> {
