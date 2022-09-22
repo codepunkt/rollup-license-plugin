@@ -1,6 +1,6 @@
 {
   "name": "rollup-license-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "Extracts OSS license information of the npm packages in your rollup or vite output",
   "keywords": [
@@ -36,7 +36,6 @@
     "prebuild": "node -e \"fs.rmSync('dist', { force: true, recursive: true })\"",
     "build": "tsup src/index.ts",
     "typescript": "tsc",
-    "postinstall": "cd test && npm ci",
     "prepublishOnly": "npm run build",
     "test": "c8 ava"
   },

@@ -25,6 +25,7 @@ jobs:
     - name: Install dependencies
       run: |
         npm ci --no-audit --no-fund
+        cd test && npm run ci --no-audit --no-fund
     - name: Run tests
       run: npm run test
       env:
