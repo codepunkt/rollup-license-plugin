@@ -1,4 +1,4 @@
-name: tests
+name: test
 
 on:
   workflow_dispatch:
@@ -11,7 +11,8 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    name: Execute Tests
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         node-version: [14.x, 16.x]
@@ -34,9 +35,21 @@ jobs:
         filename: ./coverage/cobertura-coverage.xml
         format: markdown
         output: both
-    - name: Add Coverage PR comment
-      uses: marocchino/sticky-pull-request-comment@v2
-      if: github.event_name == 'pull_request'
+    - name: Write PR meta to file
+      run: |
+        echo "PR_HEADSHA=${{ github.event.pull_request.head.sha }}" >> pr.env
+        echo "PR_NUMBER=${{ github.event.pull_request.number }}"    >> pr.env
+    - name: Upload PR meta and Coverage summery artifacts
+      uses: actions/upload-artifact@v2
       with:
-        recreate: true
-        path: code-coverage-results.md
+        name: pr-comment-meta
+        path: |
+          pr.env
+          code-coverage-results.md
+        retention-days: 1
+    # - name: Add Coverage PR comment
+    #   uses: marocchino/sticky-pull-request-comment@v2
+    #   if: github.event_name == 'pull_request'
+    #   with:
+    #     recreate: true
+    #     path: code-coverage-results.md
