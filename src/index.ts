@@ -18,7 +18,8 @@ export interface PackageMeta {
 export interface LicenseMeta {
   name: string
   version: string
-  license: string | null
+  license: string
+  licenseText: string
 }
 
 interface TestMocks {
