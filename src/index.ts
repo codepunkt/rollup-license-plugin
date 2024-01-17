@@ -289,8 +289,7 @@ export function createRollupLicensePlugin(
         )
         const repository = getRepository(meta)
 
-        // @ts-ignore
-        const source = getNpmTarballUrl.default(meta.name, meta.version)
+        const source = getNpmTarballUrl(meta.name, meta.version)
         licenseMeta.push({
           name: meta.name,
           version: meta.version,
@@ -310,9 +309,8 @@ export function createRollupLicensePlugin(
 
       if (pluginOptions.additionalFiles) {
         for (const fileName of Object.keys(pluginOptions.additionalFiles)) {
-          const source = await pluginOptions.additionalFiles[fileName](
-            licenseMeta
-          )
+          const source =
+            await pluginOptions.additionalFiles[fileName](licenseMeta)
           this.emitFile({ type: 'asset', source, fileName })
         }
       }
