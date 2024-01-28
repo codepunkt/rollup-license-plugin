@@ -68,5 +68,9 @@
       "text",
       "cobertura"
     ]
-  }
+  },
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ]
 }
