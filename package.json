@@ -1,6 +1,6 @@
 {
   "name": "rollup-license-plugin",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "type": "module",
   "description": "Extracts OSS license information of the npm packages in your rollup or vite output",
   "keywords": [
@@ -68,5 +68,10 @@
       "text",
       "cobertura"
     ]
-  }
+  },
+    "files": [
+    "src", 
+    "dist", 
+    "CHANGELOG.md"
+  ]
 }
