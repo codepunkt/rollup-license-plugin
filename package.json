@@ -69,9 +69,8 @@
       "cobertura"
     ]
   },
-    "files": [
-    "src", 
-    "dist", 
+  "files": [
+    "dist",
     "CHANGELOG.md"
   ]
 }
