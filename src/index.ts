@@ -16,9 +16,13 @@ export interface PackageMeta {
 }
 
 export interface LicenseMeta {
+  author: PackageMeta['author']
   name: string
+  license: string
+  licenseText: string
+  repository: string
+  source: string
   version: string
-  license: string | null
 }
 
 interface TestMocks {
@@ -88,7 +92,7 @@ export interface PluginOptions {
   __mocks__?: TestMocks
 }
 
-const defaultLicenseTextCache: { [license: string]: string | null } = {}
+const defaultLicenseTextCache: { [license: string]: string } = {}
 
 async function getDefaultLicenseText(license: string) {
   if (!defaultLicenseTextCache[license]) {
@@ -258,7 +262,7 @@ export function createRollupLicensePlugin(
     },
 
     async generateBundle() {
-      const licenseMeta = []
+      const licenseMeta: LicenseMeta[] = []
 
       const getLicenseFn = pluginOptions.__mocks__?.getLicense ?? getLicense
 
