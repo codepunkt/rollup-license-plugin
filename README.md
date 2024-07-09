@@ -13,9 +13,9 @@
   <a href="https://github.com/codepunkt/rollup-license-plugin/commits/master">
     <img src="https://img.shields.io/github/actions/workflow/status/codepunkt/rollup-license-plugin/test.yml?branch=main&style=popout&logo=github&logoColor=ddd" alt="Continuous integration status"/>
   </a>
-  <!--<a href="https://codecov.io/gh/codepunkt/rollup-license-plugin">
+  <a href="https://codecov.io/gh/codepunkt/rollup-license-plugin">
     <img src="https://img.shields.io/codecov/c/github/codepunkt/rollup-license-plugin/master.svg?style=popout&logo=codecov" alt="Code coverage"/>
-  </a>-->
+  </a>
   <a href="https://choosealicense.com/licenses/mit/">
     <img src="https://img.shields.io/npm/l/rollup-license-plugin.svg?style=popout&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiB2aWV3Qm94PSIzIDMgMjYgMjYiPgogIDxwYXRoIGZpbGw9IiMzZGE2MzkiIGQ9Ik0xNiA1LjU1OWMtNi4xMTggMC0xMS4wNzggNC45Ni0xMS4wNzggMTEuMDc5IDAgNC43NDkgMi45ODkgOC43OTkgNy4xODggMTAuMzc0bDIuNTUzLTYuODA4YTMuODA4IDMuODA4IDAgMSAxIDIuNjc0IDBsMi41NTMgNi44MDhjNC4xOTktMS41NzUgNy4xODgtNS42MjUgNy4xODgtMTAuMzc0IDAtNi4xMTktNC45Ni0xMS4wNzktMTEuMDc5LTExLjA3OXoiLz4KPC9zdmc+Cg==&colorB=lightgray" alt="License: MIT"/>
   </a>
@@ -33,8 +33,7 @@
 </p>
 
 # Key features
-
-> This plugin extracts _open source license information_ about all of the npm/yarn/pnpm packages in your rollup or vite output and helps you identify and fix problems with your open source licensing policy.
+This plugin extracts _open source license information_ about all of the npm/yarn/pnpm packages in your rollup or vite output and helps you identify and fix problems with your open source licensing policy.
 
 - Discover every node_module used in your rollup or vite build
 - Find out how it is licensed
@@ -87,7 +86,7 @@ Further code examples will only show `createRollupLicensePlugin`, but they are a
 Options are given as an `Object` to the `createRollupLicensePlugin` and `createViteLicensePlugin` methods:
 
 ```ts
-createViteLicensePlugin({
+createRollupLicensePlugin({
   outputFilename: 'thirdPartyNotice.json'
 })
 ```
