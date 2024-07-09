@@ -1,11 +1,10 @@
 <h1 align="center">
   rollup-license-plugin
+  <br/>
 </h1>
 
-<h2 align="center">Manage third-party license compliance in your <b>Rollup</b> and <b>Vite</b> builds</h4>
+<h4 align="center">Manage third-party license compliance in your <b>Rollup</b> and <b>Vite</b> builds</h4>
 <h6 align="center">Are you using <b>Webpack</b>? Have a look at <a href="https://github.com/codepunkt/webpack-license-plugin">webpack-license-plugin</a>!</h6>
-
-<br />
 
 <p align="center">
   <a href="https://badge.fury.io/js/rollup-license-plugin">
