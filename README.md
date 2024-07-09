@@ -2,7 +2,8 @@
   rollup-license-plugin
 </h1>
 
-<h2 align="center">Manage third-party license compliance in your <b>rollup</b> and <b>vite</b> builds</h4>
+<h2 align="center">Manage third-party license compliance in your <b>Rollup</b> and <b>Vite</b> builds</h4>
+<h6 align="center">Are you using <b>Webpack</b>? Have a look at <a href="https://github.com/codepunkt/webpack-license-plugin">webpack-license-plugin</a>!</h6>
 
 <br />
 
