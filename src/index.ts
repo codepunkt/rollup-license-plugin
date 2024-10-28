@@ -246,7 +246,7 @@ export function createRollupLicensePlugin(
             Boolean(path.match(/node_modules/)) && module.renderedLength > 0
         )
         .map(([path]) =>
-          path.startsWith('\0') ? path.replace(/^\0/, '') : path
+          (path.startsWith("\0") ? path.replace(/^\0/, "") : path).replace(/\\/g, '/')
         )
         .map((path) => [path, path.split('node_modules').pop()])
         .map(([path, filePath]) => {
