@@ -1,7 +1,7 @@
 import { readdir, readFile } from 'fs/promises'
 import { join } from 'path'
 import type { Plugin as RollupPlugin } from 'rollup'
-import type { Plugin as VitePlugin } from 'vite'
+import type { PluginOption, Plugin as VitePlugin } from 'vite'
 import validateSpdx from 'spdx-expression-validate'
 import getNpmTarballUrl from 'get-npm-tarball-url'
 import fetch from 'node-fetch'
@@ -246,7 +246,10 @@ export function createRollupLicensePlugin(
             Boolean(path.match(/node_modules/)) && module.renderedLength > 0
         )
         .map(([path]) =>
-          (path.startsWith("\0") ? path.replace(/^\0/, "") : path).replace(/\\/g, '/')
+          (path.startsWith('\0') ? path.replace(/^\0/, '') : path).replace(
+            /\\/g,
+            '/'
+          )
         )
         .map((path) => [path, path.split('node_modules').pop()])
         .map(([path, filePath]) => {
@@ -324,7 +327,7 @@ export function createRollupLicensePlugin(
 
 export function createViteLicensePlugin(
   pluginOptions: PluginOptions = {}
-): VitePlugin {
+): PluginOption {
   const pluginName = 'vite-license-plugin'
 
   return {

@@ -99,10 +99,10 @@ test('matches snapshot when a package license is overridden', async (t) => {
 
 test('throws when encountering invalid SPDX expressions', async (t) => {
   await t.throwsAsync(
-    () => build({ licenseOverrides: { 'scheduler@0.23.0': 'Apache 2.0' } }),
+    () => build({ licenseOverrides: { 'scheduler@0.23.2': 'Apache 2.0' } }),
     {
       message: new RegExp(
-        'License "Apache 2.0" for scheduler@0.23.0 is not a valid SPDX expression!'
+        'License "Apache 2.0" for scheduler@0.23.2 is not a valid SPDX expression!'
       ),
     }
   )

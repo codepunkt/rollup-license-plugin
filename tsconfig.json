@@ -2,6 +2,7 @@
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.test.ts"],
   "compilerOptions": {
-    "moduleResolution": "node",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
   }
 }
