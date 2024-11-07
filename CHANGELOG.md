@@ -1,3 +1,7 @@
+# 3.0.1
+
+- Update file paths to use forward slashes for windows (thanks to @alan-agius4)
+
 # 3.0.0
 
 - Support for node 16 removed
