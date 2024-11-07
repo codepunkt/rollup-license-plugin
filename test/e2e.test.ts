@@ -171,7 +171,7 @@ describe('e2e tests', () => {
         },
       })
     ).rejects.toThrowError(
-      /could not find file specified inWATpackage.json license field/i
+      /could not find file specified in package.json license field/i
     )
   })
 
