@@ -41,7 +41,7 @@ jobs:
           echo "PR_HEADSHA=${{ github.event.pull_request.head.sha }}" >> pr.env
           echo "PR_NUMBER=${{ github.event.pull_request.number }}"    >> pr.env
       - name: Upload PR meta and Coverage summery artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: pr-comment-meta
           path: |
