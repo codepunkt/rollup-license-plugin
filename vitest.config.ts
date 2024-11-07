@@ -7,6 +7,7 @@ export default defineConfig({
     coverage: {
       include: ['src/**'],
       provider: 'v8' as const,
+      reporter: ['cobertura', 'text'],
       thresholds: {
         branches: 100,
         functions: 100,

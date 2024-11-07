@@ -39,7 +39,7 @@
     "build": "tsup src/index.ts",
     "typescript": "tsc --noEmit",
     "prepublishOnly": "npm run build",
-    "test": "vitest",
+    "test": "vitest --watch=false --coverage",
     "update-test-snapshot": "NODE_OPTIONS='--no-warnings --loader=@esbuild-kit/esm-loader' c8 ava --update-snapshots --serial"
   },
   "dependencies": {
