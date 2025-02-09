@@ -62,6 +62,14 @@ describe('e2e tests', () => {
     ).toMatchSnapshot()
   })
 
+  it('matches snapshot when providing a custom transform function', async (t) => {
+    expect(
+      await build({
+        transformFile: (p) => JSON.stringify(p.reverse(), null, 2),
+      })
+    ).toMatchSnapshot()
+  })
+
   it('throws when encountering licenses configured as unacceptable', async (t) => {
     await expect(() =>
       build({

@@ -1,7 +1,7 @@
 import { readdir, readFile } from 'fs/promises'
 import { join } from 'path'
 import type { Plugin as RollupPlugin } from 'rollup'
-import type { PluginOption, Plugin as VitePlugin } from 'vite'
+import type { PluginOption } from 'vite'
 import validateSpdx from 'spdx-expression-validate'
 import getNpmTarballUrl from 'get-npm-tarball-url'
 import fetch from 'node-fetch'
@@ -60,6 +60,11 @@ export interface PluginOptions {
    * output directory). Defaults to `oss-licenses.json`.
    */
   outputFilename?: string
+  /**
+   * Defines a function to process the output file.
+   * Gets invoked with the packages array and should return the content written to the additional file.
+   */
+  transformFile?: (packages: LicenseMeta[]) => string | Promise<string>
   /**
    * When this is enabled, packages where no license text was found get their
    * license text from spdx.org. Defaults to `false`.
@@ -308,9 +313,13 @@ export function createRollupLicensePlugin(
         })
       }
 
+      const fileSource = pluginOptions.transformFile
+        ? await pluginOptions.transformFile(licenseMeta)
+        : JSON.stringify(licenseMeta, null, 2);
+
       this.emitFile({
         type: 'asset',
-        source: JSON.stringify(licenseMeta, null, 2),
+        source: fileSource,
         fileName: pluginOptions.outputFilename ?? 'oss-licenses.json',
       })
 
