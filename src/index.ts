@@ -97,7 +97,7 @@ const defaultLicenseTextCache: { [license: string]: string } = {}
 async function getDefaultLicenseText(license: string) {
   if (!defaultLicenseTextCache[license]) {
     const response = await fetch(
-      `https://raw.githubusercontent.com/spdx/license-list-data/master/text/${license}.txt`
+      `https://raw.githubusercontent.com/spdx/license-list-data/main/text/${license}.txt`
     )
     const responseText = await response.text()
     defaultLicenseTextCache[license] = responseText
