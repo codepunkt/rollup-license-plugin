@@ -40,6 +40,7 @@
     "typescript": "tsc --noEmit",
     "prepublishOnly": "npm run build",
     "test": "vitest --watch=false --coverage",
+    "install:e2e": "cd test && npm i",
     "update-test-snapshot": "NODE_OPTIONS='--no-warnings --loader=@esbuild-kit/esm-loader' c8 ava --update-snapshots --serial"
   },
   "dependencies": {
