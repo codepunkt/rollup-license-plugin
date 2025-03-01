@@ -40,8 +40,7 @@
     "typescript": "tsc --noEmit",
     "prepublishOnly": "npm run build",
     "test": "vitest --watch=false --coverage",
-    "install:e2e": "cd test && npm i",
-    "update-test-snapshot": "NODE_OPTIONS='--no-warnings --loader=@esbuild-kit/esm-loader' c8 ava --update-snapshots --serial"
+    "install:e2e": "cd test && npm i"
   },
   "dependencies": {
     "get-npm-tarball-url": "^2.1.0",
