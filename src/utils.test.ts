@@ -111,4 +111,23 @@ describe('getLicense', function () {
       )
     ).toBe('Apache-2.0')
   })
+
+  test('allows overriding license values using version ranges', function () {
+    expect(
+      getLicense(
+        'foo@1.2.3',
+        {
+          name: 'foo',
+          version: '1.2.3',
+          license: 'MIT',
+        },
+        {
+          unacceptableLicenseTest: (license) => license === 'MIT',
+          licenseOverrides: {
+            'foo@1.x': 'Apache-2.0',
+          },
+        }
+      )
+    ).toBe('Apache-2.0')
+  })
 })

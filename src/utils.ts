@@ -2,6 +2,7 @@ import { readdir, readFile } from 'fs/promises'
 import { join } from 'path'
 import validateSpdx from 'spdx-expression-validate'
 import fetch from 'node-fetch'
+import semver from 'semver'
 
 import type { PackageMeta, PluginOptions } from './types.js'
 
@@ -98,6 +99,22 @@ function findPreferredLicense(
   return null
 }
 
+function getVersionFromPackageIdentifier(identifier: string) {
+  const [_name, version] = identifier.split('@')
+
+  return version
+}
+
+function doesPackageIdMatchOverrideId(packageId: string, overrideId: string) {
+  return (
+    getVersionFromPackageIdentifier(overrideId) !== '' &&
+    semver.satisfies(
+      getVersionFromPackageIdentifier(packageId),
+      getVersionFromPackageIdentifier(overrideId)
+    )
+  )
+}
+
 export function getLicense(
   packageId: string,
   meta: PackageMeta,
@@ -107,9 +124,15 @@ export function getLicense(
 
   if (
     pluginOptions.licenseOverrides &&
-    pluginOptions.licenseOverrides[packageId]
+    Object.keys(pluginOptions.licenseOverrides).some((override) =>
+      doesPackageIdMatchOverrideId(packageId, override)
+    )
   ) {
-    license = pluginOptions.licenseOverrides[packageId]
+    const [_key, value] = Object.entries(pluginOptions.licenseOverrides).find(
+      ([key]) => doesPackageIdMatchOverrideId(packageId, key)
+    )
+
+    license = value
   } else if (typeof meta.license === 'object') {
     license = meta.license.type
   } else if (meta.license) {
