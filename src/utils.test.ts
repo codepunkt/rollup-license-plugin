@@ -1,0 +1,114 @@
+import { describe, expect, test } from 'vitest'
+import { getLicense } from './utils'
+
+describe('getLicense', function () {
+  test('works with string-type license field', function () {
+    expect(
+      getLicense('foo@1.2.3', {
+        name: 'foo',
+        version: '1.2.3',
+        license: 'MIT',
+      })
+    ).toBe('MIT')
+  })
+
+  test('works with deprecated object-type license field', function () {
+    expect(
+      getLicense('foo@1.2.3', {
+        name: 'foo',
+        version: '1.2.3',
+        license: {
+          type: 'MIT',
+          url: 'https://www.opensource.org/licenses/mit-license.php',
+        },
+      })
+    ).toBe('MIT')
+  })
+
+  test('works with deprecated licenses field', function () {
+    expect(
+      getLicense('foo@1.2.3', {
+        name: 'foo',
+        version: '1.2.3',
+        licenses: [
+          {
+            type: 'MIT',
+            url: 'https://www.opensource.org/licenses/mit-license.php',
+          },
+          {
+            type: 'Apache-2.0',
+            url: 'https://opensource.org/licenses/apache2.0.php',
+          },
+        ],
+      })
+    ).toBe('MIT')
+  })
+
+  test('works with incorrect string-type licenses field', function () {
+    expect(
+      getLicense('foo@1.2.3', {
+        name: 'foo',
+        version: '1.2.3',
+        licenses: 'MIT',
+      })
+    ).toBe('MIT')
+  })
+
+  test('throws if license is missing', function () {
+    expect(() =>
+      getLicense('foo@1.2.3', {
+        name: 'foo',
+        version: '1.2.3',
+      })
+    ).toThrow(new Error('Could not find license info for foo@1.2.3'))
+  })
+
+  test('throws if license is invalid', function () {
+    expect(() =>
+      getLicense('foo@1.2.3', {
+        name: 'foo',
+        version: '1.2.3',
+        license: 'abc 123 {}?<>',
+      })
+    ).toThrow(
+      new Error(
+        'License "abc 123 {}?<>" for foo@1.2.3 is not a valid SPDX expression!'
+      )
+    )
+  })
+
+  test('throws if license is unacceptable', function () {
+    expect(() =>
+      getLicense(
+        'foo@1.2.3',
+        {
+          name: 'foo',
+          version: '1.2.3',
+          license: 'MIT',
+        },
+        {
+          unacceptableLicenseTest: (license) => license === 'MIT',
+        }
+      )
+    ).toThrow(new Error('Found unacceptable license "MIT" for foo@1.2.3'))
+  })
+
+  test('allows overriding license values using exact version numbers', function () {
+    expect(
+      getLicense(
+        'foo@1.2.3',
+        {
+          name: 'foo',
+          version: '1.2.3',
+          license: 'MIT',
+        },
+        {
+          unacceptableLicenseTest: (license) => license === 'MIT',
+          licenseOverrides: {
+            'foo@1.2.3': 'Apache-2.0',
+          },
+        }
+      )
+    ).toBe('Apache-2.0')
+  })
+})
