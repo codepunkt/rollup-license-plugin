@@ -99,7 +99,9 @@ function findPreferredLicense(
   return null
 }
 
-function getVersionFromPackageIdentifier(identifier: string) {
+function getVersionFromPackageIdentifier(
+  identifier: string
+): string | undefined {
   const [_name, version] = identifier.split('@')
 
   return version
@@ -107,7 +109,8 @@ function getVersionFromPackageIdentifier(identifier: string) {
 
 function doesPackageIdMatchOverrideId(packageId: string, overrideId: string) {
   return (
-    getVersionFromPackageIdentifier(overrideId) !== '' &&
+    getVersionFromPackageIdentifier(overrideId) === undefined ||
+    getVersionFromPackageIdentifier(overrideId) === '' ||
     semver.satisfies(
       getVersionFromPackageIdentifier(packageId),
       getVersionFromPackageIdentifier(overrideId)
