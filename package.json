@@ -48,7 +48,7 @@
     "spdx-expression-validate": "^2.0.0"
   },
   "devDependencies": {
-    "@types/node": "^22.9.0",
+    "@types/node": "^24.0.10",
     "@vitest/coverage-v8": "^3.0.7",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
