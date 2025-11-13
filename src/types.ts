@@ -56,9 +56,10 @@ export interface PluginOptions {
   licenseOverrides?: { [packageVersion: string]: string }
   /**
    * Path to the output file that will be generated (relative to the bundle
-   * output directory). Defaults to `oss-licenses.json`.
+   * output directory)  Set this to `false` to disable the default output file.
+   * Defaults to `oss-licenses.json`.
    */
-  outputFilename?: string
+  outputFilename?: string | false
   /**
    * When this is enabled, packages where no license text was found get their
    * license text from spdx.org. Defaults to `false`.

@@ -1,5 +1,6 @@
 import type { Plugin as RollupPlugin } from 'rollup'
-import type { PluginOption } from 'vite'
+
+import type { Plugin as VitePlugin } from 'vite'
 import getNpmTarballUrl from 'get-npm-tarball-url'
 
 import type { LicenseMeta, PluginOptions } from './types.js'
@@ -88,11 +89,13 @@ export function createRollupLicensePlugin(
         })
       }
 
-      this.emitFile({
-        type: 'asset',
-        source: JSON.stringify(licenseMeta, null, 2),
-        fileName: pluginOptions.outputFilename ?? 'oss-licenses.json',
-      })
+      if (pluginOptions.outputFilename !== false) {
+        this.emitFile({
+          type: 'asset',
+          source: JSON.stringify(licenseMeta, null, 2),
+          fileName: pluginOptions.outputFilename ?? 'oss-licenses.json',
+        })
+      }
 
       if (pluginOptions.additionalFiles) {
         for (const fileName of Object.keys(pluginOptions.additionalFiles)) {
@@ -107,7 +110,7 @@ export function createRollupLicensePlugin(
 
 export function createViteLicensePlugin(
   pluginOptions: PluginOptions = {}
-): PluginOption {
+): VitePlugin {
   const pluginName = 'vite-license-plugin'
 
   return {
