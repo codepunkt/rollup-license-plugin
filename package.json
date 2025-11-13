@@ -40,7 +40,8 @@
     "typescript": "tsc --noEmit",
     "prepublishOnly": "npm run build",
     "test": "vitest --watch=false --coverage",
-    "install:e2e": "cd test && npm i"
+    "install:e2e": "cd test && npm i",
+    "release": "release-it"
   },
   "dependencies": {
     "get-npm-tarball-url": "^2.1.0",
@@ -54,6 +55,7 @@
     "@vitest/coverage-v8": "^4.0.8",
     "lint-staged": "^16.2.6",
     "prettier": "^3.6.2",
+    "release-it": "^19.0.6",
     "rollup": "^4.53.2",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3",
