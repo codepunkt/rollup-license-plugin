@@ -102,9 +102,13 @@ function findPreferredLicense(
 function getVersionFromPackageIdentifier(
   identifier: string
 ): string | undefined {
-  const [_name, version] = identifier.split('@')
+  const atIndex = identifier.lastIndexOf('@')
 
-  return version
+  if (atIndex > 0) {
+    return identifier.substring(atIndex + 1)
+  }
+
+  return undefined
 }
 
 function doesPackageIdMatchOverrideId(packageId: string, overrideId: string) {
