@@ -1,7 +1,7 @@
 import { readdir, readFile } from 'fs/promises'
 import { join } from 'path'
 import type { Plugin as RollupPlugin } from 'rollup'
-import type { PluginOption, Plugin as VitePlugin } from 'vite'
+import type { Plugin as VitePlugin } from 'vite'
 import validateSpdx from 'spdx-expression-validate'
 import getNpmTarballUrl from 'get-npm-tarball-url'
 import fetch from 'node-fetch'
@@ -330,7 +330,7 @@ export function createRollupLicensePlugin(
 
 export function createViteLicensePlugin(
   pluginOptions: PluginOptions = {}
-): PluginOption {
+): VitePlugin {
   const pluginName = 'vite-license-plugin'
 
   return {
