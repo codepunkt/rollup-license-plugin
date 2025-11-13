@@ -50,8 +50,12 @@ export interface PluginOptions {
   /**
    * Defines an object to override licenses for specified package versions.
    *
-   * Keys have the format <name>@<version>, values are valid spdx license
-   * expressions.
+   * Keys have the format <name>@<version>, where <version> can be:
+   * - An exact version (e.g., 'foo@1.2.3')
+   * - A semver range (e.g., 'foo@1.x' or 'foo@^1.0.0')
+   * - Omitted to match all versions (e.g., 'foo')
+   *
+   * Values are valid SPDX license expressions.
    */
   licenseOverrides?: { [packageVersion: string]: string }
   /**
