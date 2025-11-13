@@ -119,3 +119,5 @@ export function createViteLicensePlugin(
     apply: 'build',
   }
 }
+
+export type { PackageMeta, LicenseMeta, PluginOptions } from './types.js'
