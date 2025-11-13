@@ -50,6 +50,7 @@
     "spdx-expression-validate": "^2.0.0"
   },
   "devDependencies": {
+    "@release-it/conventional-changelog": "^10.0.1",
     "@types/node": "^24.10.1",
     "@types/semver": "^7.7.1",
     "@vitest/coverage-v8": "^4.0.8",

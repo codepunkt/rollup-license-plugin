@@ -12,4 +12,13 @@ export default {
   npm: {
     publish: true,
   },
+  plugins: {
+    '@release-it/conventional-changelog': {
+      infile: 'CHANGELOG.md',
+      header: '# Changelog',
+      preset: {
+        name: 'conventionalcommits',
+      },
+    },
+  },
 } satisfies Config
