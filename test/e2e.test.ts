@@ -4,7 +4,7 @@ import {
   PackageMeta,
   PluginOptions,
 } from '../src/index'
-import { build as viteBuild } from 'vite'
+import { build as viteBuild, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import { expect, describe, it } from 'vitest'
 import type { RollupOutput, OutputAsset } from 'rollup'
@@ -27,7 +27,7 @@ async function build(opts: PluginOptions = {}): Promise<OutputAsset[]> {
   const result = (await viteBuild({
     root,
     logLevel: 'silent',
-    plugins: [react(), createViteLicensePlugin(opts)],
+    plugins: [react(), createViteLicensePlugin(opts) as Plugin],
   })) as RollupOutput
 
   const resultingFilenames = [
