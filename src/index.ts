@@ -57,9 +57,10 @@ export interface PluginOptions {
   licenseOverrides?: { [packageVersion: string]: string }
   /**
    * Path to the output file that will be generated (relative to the bundle
-   * output directory). Defaults to `oss-licenses.json`.
+   * output directory)  Set this to `false` to disable the default output file.
+   * Defaults to `oss-licenses.json`.
    */
-  outputFilename?: string
+  outputFilename?: string | false
   /**
    * When this is enabled, packages where no license text was found get their
    * license text from spdx.org. Defaults to `false`.
@@ -308,11 +309,13 @@ export function createRollupLicensePlugin(
         })
       }
 
-      this.emitFile({
-        type: 'asset',
-        source: JSON.stringify(licenseMeta, null, 2),
-        fileName: pluginOptions.outputFilename ?? 'oss-licenses.json',
-      })
+      if (pluginOptions.outputFilename !== false) {
+        this.emitFile({
+          type: 'asset',
+          source: JSON.stringify(licenseMeta, null, 2),
+          fileName: pluginOptions.outputFilename ?? 'oss-licenses.json',
+        })
+      }
 
       if (pluginOptions.additionalFiles) {
         for (const fileName of Object.keys(pluginOptions.additionalFiles)) {
