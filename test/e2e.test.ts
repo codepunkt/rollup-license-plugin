@@ -52,6 +52,10 @@ describe('e2e tests', () => {
     ).toMatchSnapshot()
   })
 
+  it('matches snapshot when no outputFilename is set to false', async (t) => {
+    expect(await build({ outputFilename: false })).toMatchSnapshot()
+  })
+
   it('matches snapshot when additionalFiles are configured', async (t) => {
     expect(
       await build({
@@ -102,7 +106,7 @@ describe('e2e tests', () => {
 
   it('throws when encountering invalid SPDX expressions', async (t) => {
     await expect(() =>
-      build({ licenseOverrides: { 'scheduler@0.23.2': 'Apache 2.0' } })
+      build({ licenseOverrides: { scheduler: 'Apache 2.0' } })
     ).rejects.toThrowError(/is not a valid spdx expression!/i)
   })
 
