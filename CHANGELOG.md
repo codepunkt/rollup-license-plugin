@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.2.0](https://github.com/codepunkt/rollup-license-plugin/compare/3.1.0...3.2.0) (2026-03-12)
+
+### ✨ New Features
+
+* export utils ([#418](https://github.com/codepunkt/rollup-license-plugin/issues/418)) ([2514868](https://github.com/codepunkt/rollup-license-plugin/commit/2514868bb4e899efd51cd0060d480403b5d689bf))
+
 ## [3.1.1](https://github.com/codepunkt/rollup-license-plugin/compare/3.1.0...3.1.1) (2026-03-12)
 
 ## [3.1.0](https://github.com/codepunkt/rollup-license-plugin/compare/3.0.2...3.4.0) (2025-11-13)
