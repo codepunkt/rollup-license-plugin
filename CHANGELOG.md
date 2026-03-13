@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.2.1](https://github.com/codepunkt/rollup-license-plugin/compare/3.2.0...3.2.1) (2026-03-13)
+
+### 🐛 Bug Fixes
+
+* compare package names in license override matching ([68e324f](https://github.com/codepunkt/rollup-license-plugin/commit/68e324f0beede9a9a62a76de5c15e1a7f80a74e8))
+
 ## [3.2.0](https://github.com/codepunkt/rollup-license-plugin/compare/3.1.0...3.2.0) (2026-03-12)
 
 ### ✨ New Features
