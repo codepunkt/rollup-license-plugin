@@ -111,13 +111,29 @@ function getVersionFromPackageIdentifier(
   return undefined
 }
 
+function getNameFromPackageIdentifier(identifier: string): string {
+  const atIndex = identifier.lastIndexOf('@')
+  if (atIndex > 0) {
+    return identifier.substring(0, atIndex)
+  }
+  return identifier
+}
+
 function doesPackageIdMatchOverrideId(packageId: string, overrideId: string) {
+  if (
+    getNameFromPackageIdentifier(packageId) !==
+    getNameFromPackageIdentifier(overrideId)
+  ) {
+    return false
+  }
+
+  const overrideVersion = getVersionFromPackageIdentifier(overrideId)
   return (
-    getVersionFromPackageIdentifier(overrideId) === undefined ||
-    getVersionFromPackageIdentifier(overrideId) === '' ||
+    overrideVersion === undefined ||
+    overrideVersion === '' ||
     semver.satisfies(
       getVersionFromPackageIdentifier(packageId),
-      getVersionFromPackageIdentifier(overrideId)
+      overrideVersion
     )
   )
 }

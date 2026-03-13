@@ -168,4 +168,42 @@ describe('getLicense', function () {
       )
     ).toBe('Apache-2.0')
   })
+
+  it('does not apply an override to a different package', function () {
+    expect(() =>
+      getLicense(
+        'bar@1.0.0',
+        {
+          name: 'bar',
+          version: '1.0.0',
+          license: 'MIT',
+        },
+        {
+          unacceptableLicenseTest: (license) => license === 'MIT',
+          licenseOverrides: {
+            foo: 'Apache-2.0',
+          },
+        }
+      )
+    ).toThrow(new Error('Found unacceptable license "MIT" for bar@1.0.0'))
+  })
+
+  it('does not apply a versioned override to a different package with the same version', function () {
+    expect(() =>
+      getLicense(
+        'bar@1.2.3',
+        {
+          name: 'bar',
+          version: '1.2.3',
+          license: 'MIT',
+        },
+        {
+          unacceptableLicenseTest: (license) => license === 'MIT',
+          licenseOverrides: {
+            'foo@1.2.3': 'Apache-2.0',
+          },
+        }
+      )
+    ).toThrow(new Error('Found unacceptable license "MIT" for bar@1.2.3'))
+  })
 })
