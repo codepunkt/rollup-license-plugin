@@ -54,7 +54,7 @@
     "@types/node": "^24.10.1",
     "@types/semver": "^7.7.1",
     "@vitest/coverage-v8": "^4.0.8",
-    "lint-staged": "^16.2.6",
+    "lint-staged": "^17.0.5",
     "prettier": "^3.6.2",
     "release-it": "^19.0.6",
     "rollup": "^4.53.2",
